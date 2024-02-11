@@ -37,7 +37,7 @@ void Cart::cart_load(std::string rom) {
     buffer = new char[sizeof(header_t)];
     int j = 0;
 
-    for(u16 i = 0x100; i < 0x150; i++){
+    for(auto i = 0x100; i < 0x150; i++){
         buffer[j] = data[i];
         j++;
     }
