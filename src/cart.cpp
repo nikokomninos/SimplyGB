@@ -1,5 +1,4 @@
 #include <cart.h>
-#include <stdexcept>
 
 Cart::Cart(){};
 
@@ -18,7 +17,6 @@ void Cart::cart_load(std::string rom) {
 
     //If file is empty, print error
     if(!ifs.is_open()){
-        //std::cerr << "ERROR: File could not be opened" << std::endl;
         throw std::runtime_error("ERROR: File could not be opened");
     }
 
@@ -28,18 +26,40 @@ void Cart::cart_load(std::string rom) {
 
     //Copy ROM file data locally
     buffer = new char[size];
-    data = new char[size];
     ifs.read(buffer, size);
     ifs.close();
 
-    for(auto i = 0; i < size; ++i){
-        //printf("%02hhx ", buffer[i]);
-        data[i] = buffer[i];
+    //Store ROM data into cart object
+    for(auto i = 0; i < size; i++)
+        data.push_back(buffer[i]);
+
+    //Get and store ROM header info
+    buffer = new char[sizeof(header_t)];
+    int j = 0;
+
+    for(u16 i = 0x100; i < 0x150; i++){
+        buffer[j] = data[i];
+        j++;
     }
 
+    header = (header_t *)buffer;
     delete[] buffer;
 }
 
+/**
+ * Print the cart header information
+ *
+ * @param None
+ * @return None
+ */
 void Cart::cart_get_header(){
-    std::cout << data[100] << std::endl;
+    std::cout << "TITLE:            | " << header->title << std::endl;
+    std::cout << "OLD LICENSEE:     | " << old_licensee_codes.find(header->old_licensee)->second << std::endl;
+    std::cout << "NEW LICENSEE:     | " << new_licensee_codes.find(header->new_licensee)->second << std::endl;
+    std::cout << "CART TYPE:        | " << cart_types.find(header->type)->second << std::endl;
+    std::cout << "ROM SIZE:         | " << rom_sizes.find(header->rom_size)->second << std::endl;
+    std::cout << "RAM SIZE:         | " << ram_sizes.find(header->ram_size)->second << std::endl;
+    std::cout << "DESTINATION CODE: | " << destination_codes.find(header->destination)->second << std::endl;
+
+    std::cout << std::endl;
 }

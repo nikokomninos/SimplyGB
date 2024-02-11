@@ -120,7 +120,7 @@ const std::map<u8, std::string> ram_sizes {
     {0x05, "64 kiB"}
 };
 
-const std::map<u8, std::string> destination_cods {
+const std::map<u8, std::string> destination_codes {
     {0x00, "Japan"},
     {0x01, "Overseas Only"}
 };
@@ -276,11 +276,11 @@ const std::map<u8, std::string> old_licensee_codes {
 };
 
 typedef struct {
-    u8 entry[0x4]; // $0100 - $0103: Entry Point
+    u8 entry[0x04]; // $0100 - $0103: Entry Point
     u8 logo[0x30]; // $0104 - $0133: Nintendo Logo
     char title[0x10]; // $0134 - $0143: Title
-    char manufacturer[0x4]; // $013F - $0142: Manufacturer Code
-    u8 cgb; // $0143: CGB Flag
+    // char manufacturer[0x04]; // $013F - $0142: Manufacturer Code
+    // u8 cgb; // $0143: CGB Flag
     u16 new_licensee; // $0144 - $0145: New Licensee Code
     u8 sgb; // $0146: SGB Flag
     u8 type; // $0147: Cartridge Type
@@ -295,8 +295,9 @@ typedef struct {
 
 class Cart{
 public:
-    header_t header;
-    char *data;
+    header_t *header;
+    u64 size;
+    std::vector<u8> data;
 
     Cart();
     void cart_load(std::string rom);
