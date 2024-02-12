@@ -3,10 +3,9 @@
 Cart::Cart(){};
 
 /**
- * Load a ROM file
+ * Store the data of a ROM file into the Cart object
  *
  * @param rom ROM file name
- * @return 0 if successful, 1 otherwise
  */
 void Cart::cart_load(std::string rom) {
     std::ifstream ifs;

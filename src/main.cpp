@@ -3,8 +3,7 @@
 
 int main(int argc, char **argv){
     Gameboy gb;
-    gb.cart.cart_load(argv[1]);
-    gb.cart.cart_get_header();
+    gb.gameboy_initialize(argv[1]);
 
     return 0;
 }

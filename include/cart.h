@@ -295,14 +295,16 @@ typedef struct {
 
 class Cart{
 public:
-    header_t *header;
-    u64 size;
-    std::vector<u8> data;
-
     Cart();
     void cart_load(std::string rom);
     void cart_get_header();
 
+    friend class Gameboy;
+    friend class MMU;
+
 private:
+    header_t *header;
+    u64 size;
+    std::vector<u16> data;
 };
 

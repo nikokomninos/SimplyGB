@@ -2,6 +2,8 @@
 
 Gameboy::Gameboy(){}
 
-void Gameboy::cart_load(std::string rom){
-    cart.cart_load(rom);
+void Gameboy::gameboy_initialize(std::string file){
+    cart.cart_load(file);
+    cart.cart_get_header();
+    mmu.bus_load_rom(cart);
 }
