@@ -1,4 +1,5 @@
 #include <cart.h>
+#include <iomanip>
 
 Cart::Cart(){};
 
@@ -42,6 +43,7 @@ void Cart::cart_load(std::string rom) {
     }
 
     header = (header_t *)buffer;
+
     delete[] buffer;
 }
 
@@ -52,13 +54,19 @@ void Cart::cart_load(std::string rom) {
  * @return None
  */
 void Cart::cart_get_header(){
+    u8 checksum = 0;
+    for(u16 i = 0x0134; i <= 0x014C; i++)
+        checksum = checksum - data[i] - 1;
+
     std::cout << "TITLE:            | " << header->title << std::endl;
     std::cout << "OLD LICENSEE:     | " << old_licensee_codes.find(header->old_licensee)->second << std::endl;
     std::cout << "NEW LICENSEE:     | " << new_licensee_codes.find(header->new_licensee)->second << std::endl;
     std::cout << "CART TYPE:        | " << cart_types.find(header->type)->second << std::endl;
     std::cout << "ROM SIZE:         | " << rom_sizes.find(header->rom_size)->second << std::endl;
     std::cout << "RAM SIZE:         | " << ram_sizes.find(header->ram_size)->second << std::endl;
+    std::cout << "VERSION:          | " << std::hex << std::setfill('0') << std::setw(2) << header->version << std::endl;
     std::cout << "DESTINATION CODE: | " << destination_codes.find(header->destination)->second << std::endl;
+    std::cout << "CHECKSUM:         | " << (((checksum & 0xFF) == data[0x14D]) ? "PASSED" : "FAILED") << std::endl;
 
     std::cout << std::endl;
 }

@@ -177,4 +177,5 @@ CMakeFiles/SimplyGB.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/sstream \
  /usr/include/c++/13/bits/sstream.tcc \
  /home/nk/Documents/Repos/SimplyGB/include/gameboy.h \
- /home/nk/Documents/Repos/SimplyGB/include/mmu.h
+ /home/nk/Documents/Repos/SimplyGB/include/mmu.h \
+ /home/nk/Documents/Repos/SimplyGB/include/cpu.h

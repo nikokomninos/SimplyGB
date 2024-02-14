@@ -17,6 +17,6 @@ void MMU::bus_swap_bank(std::vector<u8> bank){
 }
 
 void MMU::bus_load_rom(Cart& cart){
-    for(auto i = 0x0; i < 0x8000; i++)
+    for(auto i = 0x0; i < cart.data.size(); i++)
         bus[i] = cart.data[i];
 }

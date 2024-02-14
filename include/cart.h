@@ -302,9 +302,8 @@ public:
     friend class Gameboy;
     friend class MMU;
 
-private:
     header_t *header;
     u64 size;
-    std::vector<u16> data;
+    std::vector<u8> data;
 };
 
