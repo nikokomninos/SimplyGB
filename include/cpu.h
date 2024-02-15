@@ -8,6 +8,9 @@ typedef struct {
     u8 B, C;
     u8 D, E;
     u8 H, L;
+    u16 BC;
+    u16 DE;
+    u16 HL;
     u16 SP;
     u16 PC;
 } registers;
