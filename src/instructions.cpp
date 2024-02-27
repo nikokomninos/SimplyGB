@@ -1,4 +1,3 @@
-#include <cstdint>
 #include <instructions.h>
 
 /*---- 8-BIT LOADS ----*/
@@ -350,7 +349,270 @@ void LD_SP_HL(CPU &cpu) { cpu.regs.SP = cpu.regs.HL; }
 /*-- LDHL SP, n --*/
 /* Put SP+n effective address into HL. n is SIGNED */
 
-// 0xF8 TODO Set flags
+// 0xF8
 void LDHL_SP_N(CPU &cpu, i8 n) {
-    cpu.regs.SP += n;
+    ((int)cpu.regs.SP + (int)n > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.SP & 0xf) + (n & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.HL = cpu.regs.SP + n;
+
+    cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+}
+
+/*-- LD (nn)),SP --)*/
+/* Put SP at address nn */
+
+// 0x08
+void LD_PAREN_NN_SP(CPU &cpu, MMU &mmu, u16 nn) { mmu.bus_write(nn, cpu.regs.SP); }
+
+/*-- PUSH nn --*/
+/* Push register pair nn onto stack */
+
+// 0xF5
+void PUSH_AF(CPU &cpu) {
+    cpu.stack.push(cpu.regs.AF);
+    cpu.regs.SP++;
+}
+
+// 0xC5
+void PUSH_BC(CPU &cpu) {
+    cpu.stack.push(cpu.regs.BC);
+    cpu.regs.SP++;
+}
+
+// 0xD5
+void PUSH_DE(CPU &cpu) {
+    cpu.stack.push(cpu.regs.DE);
+    cpu.regs.SP++;
+}
+
+// 0xE5
+void PUSH_HL(CPU &cpu) {
+    cpu.stack.push(cpu.regs.HL);
+    cpu.regs.SP++;
+}
+
+/*-- POP nn --*/
+/* Pop two bytes off stack into register pair nn.
+ * Increment SP twice */
+
+// 0xF1
+void POP_AF(CPU &cpu) {
+    cpu.regs.AF = cpu.stack.top(); cpu.stack.pop();
+    cpu.regs.SP--;
+    cpu.regs.AF = (cpu.regs.AF << 8) | cpu.stack.top();
+    cpu.regs.SP--;
+}
+
+// 0xC1
+void POP_BC(CPU &cpu) {
+    cpu.regs.BC = cpu.stack.top(); cpu.stack.pop();
+    cpu.regs.SP--;
+    cpu.regs.BC = (cpu.regs.BC << 8) | cpu.stack.top();
+    cpu.regs.SP--;
+}
+
+// 0xD1
+void POP_DE(CPU &cpu) {
+    cpu.regs.DE = cpu.stack.top(); cpu.stack.pop();
+    cpu.regs.SP--;
+    cpu.regs.DE = (cpu.regs.DE << 8) | cpu.stack.top();
+    cpu.regs.SP--;
+}
+
+// 0xE1
+void POP_HL(CPU &cpu) {
+    cpu.regs.HL = cpu.stack.top(); cpu.stack.pop();
+    cpu.regs.SP--;
+    cpu.regs.HL = (cpu.regs.HL << 8) | cpu.stack.top();
+    cpu.regs.SP--;
+}
+
+
+/*---- 8-BIT ALU ----*/
+
+/*-- ADD A,n --*/
+/* Add n to A */
+
+// 0x87
+void ADD_A_A(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.A == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.A > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.A & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.A;
+}
+
+// 0x80
+void ADD_A_B(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.B == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.B > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.B & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.B;
+}
+
+// 0x81
+void ADD_A_C(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.C;
+}
+
+// 0x82
+void ADD_A_D(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.D == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.D > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.D & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.D;
+}
+
+// 0x83
+void ADD_A_E(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.E == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.E > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.E & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.E;
+}
+
+// 0x84
+void ADD_A_H(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.H == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.H > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.H & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.H;
+}
+
+// 0x85
+void ADD_A_L(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.L == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.L > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.L & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.L;
+}
+
+// 0x86
+void ADD_A_HL(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.HL == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.HL > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.HL & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += cpu.regs.HL;
+}
+
+// 0xC6
+void ADD_A_N(CPU &cpu, u8 n) {
+    (cpu.regs.A + n == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)n > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (n & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+
+    cpu.regs.A += n;
+}
+
+/*-- ADC A,n --*/
+/* Add n + Carry flag to A */
+
+// 0x8F FIXME
+void ADC_A_A(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.A + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.A + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.A & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.A + cpu.flags.C;
+}
+
+// 0x88 FIXME
+void ADC_A_B(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.B + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.B + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.B & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.B + cpu.flags.C;
+}
+
+// 0x89 FIXME
+void ADC_A_C(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.C + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.C + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.C & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.C + cpu.flags.C;
+}
+
+// 0x8A FIXME
+void ADC_A_D(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.D + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.D + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.D & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.D + cpu.flags.C;
+}
+
+// 0x8B FIXME
+void ADC_A_E(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.E + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.E + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.E & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.E + cpu.flags.C;
+}
+
+// 0x8C FIXME
+void ADC_A_H(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.H + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.H + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.H & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.H + cpu.flags.C;
+}
+
+// 0x8D FIXME
+void ADC_A_L(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.L + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.L + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.L & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.L + cpu.flags.C;
+}
+
+// 0x8E FIXME
+void ADC_A_HL(CPU &cpu) {
+    (cpu.regs.A + cpu.regs.HL + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)cpu.regs.HL + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (cpu.regs.HL & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + cpu.regs.HL + cpu.flags.C;
+}
+
+// 0xCE FIXME
+void ADC_A_N(CPU &cpu, u8 n) {
+    (cpu.regs.A + n + cpu.flags.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((int)cpu.regs.A + (int)n + (int)cpu.flags.C > 0xff) ? cpu.flags.C = 1 : cpu.flags.C = 0;
+    ((cpu.regs.A & 0xf) + (n & 0xf) + (cpu.flags.C & 0xf) > 0xf) ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    cpu.regs.A = cpu.regs.A + n + cpu.flags.C;
+}
+
+// 0x97 FIXME
+void SUB_A_A(CPU &cpu) {
+    (cpu.regs.A - cpu.regs.A == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((cpu.regs.A & 0x))
+    ((cpu.regs.A & 0x10) - (cpu.regs.A & 0x10) == 0x10) ? cpu.flags.H = 1 : cpu.flags.H = 0;
 }

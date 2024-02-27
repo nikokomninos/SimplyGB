@@ -2,7 +2,6 @@
 
 CPU::CPU(){
     regs.PC = 0x100;
-    regs.SP = 0;
 }
 
 void CPU::cpu_fetch(u16 addr, MMU& mmu){
