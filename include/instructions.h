@@ -57,7 +57,7 @@
 // 0x33
 // 0x34
 // 0x35
-// 0x36
+void LD_HL_N(CPU &cpu, MMU &mmu); // 0x36
 // 0x37
 // 0x38
 // 0x39
@@ -67,70 +67,70 @@
 // 0x3D
 // 0x3E
 // 0x3F
-// 0x40
-// 0x41
-// 0x42
-// 0x43
-// 0x44
-// 0x45
-// 0x46
+void LD_B_B(CPU &cpu); // 0x40
+void LD_B_C(CPU &cpu); // 0x41
+void LD_B_D(CPU &cpu); // 0x42
+void LD_B_E(CPU &cpu); // 0x43
+void LD_B_H(CPU &cpu); // 0x44
+void LD_B_L(CPU &cpu); // 0x45
+void LD_B_HL(CPU &cpu, MMU &mmu); // 0x46
 // 0x47
-// 0x48
-// 0x49
-// 0x4A
-// 0x4B
-// 0x4C
-// 0x4D
-// 0x4E
+void LD_C_B(CPU &cpu); // 0x48
+void LD_C_C(CPU &cpu); // 0x49
+void LD_C_D(CPU &cpu); // 0x4A
+void LD_C_E(CPU &cpu); // 0x4B
+void LD_C_H(CPU &cpu); // 0x4C
+void LD_C_L(CPU &cpu); // 0x4D
+void LD_C_HL(CPU &cpu, MMU &mmu); // 0x4E
 // 0x4F
-// 0x50
-// 0x51
-// 0x52
-// 0x53
-// 0x54
-// 0x55
-// 0x56
+void LD_D_B(CPU &cpu); // 0x50
+void LD_D_C(CPU &cpu); // 0x51
+void LD_D_D(CPU &cpu); // 0x52
+void LD_D_E(CPU &cpu); // 0x53
+void LD_D_H(CPU &cpu); // 0x54
+void LD_D_L(CPU &cpu); // 0x55
+void LD_D_HL(CPU &cpu, MMU &mmu); // 0x56
 // 0x57
-// 0x58
-// 0x59
-// 0x5A
-// 0x5B
-// 0x5C
-// 0x5D
-// 0x5E
+void LD_E_B(CPU &cpu); // 0x58
+void LD_E_C(CPU &cpu); // 0x59
+void LD_E_D(CPU &cpu); // 0x5A
+void LD_E_E(CPU &cpu); // 0x5B
+void LD_E_H(CPU &cpu); // 0x5C
+void LD_E_L(CPU &cpu); // 0x5D
+void LD_E_HL(CPU &cpu, MMU &mmu); // 0x5E
 // 0x5F
-// 0x60
-// 0x61
-// 0x62
-// 0x63
-// 0x64
-// 0x65
-// 0x66
+void LD_H_B(CPU &cpu); // 0x60
+void LD_H_C(CPU &cpu); // 0x61
+void LD_H_D(CPU &cpu); // 0x62
+void LD_H_E(CPU &cpu); // 0x63
+void LD_H_H(CPU &cpu); // 0x64
+void LD_H_L(CPU &cpu); // 0x65
+void LD_H_HL(CPU &cpu, MMU &mmu); // 0x66
 // 0x67
-// 0x68
-// 0x69
-// 0x6A
-// 0x6B
-// 0x6C
-// 0x6D
-// 0x6E
+void LD_L_B(CPU &cpu); // 0x68
+void LD_L_C(CPU &cpu); // 0x69
+void LD_L_D(CPU &cpu); // 0x6A
+void LD_L_E(CPU &cpu); // 0x6B
+void LD_L_H(CPU &cpu); // 0x6C
+void LD_L_L(CPU &cpu); // 0x6D
+void LD_L_HL(CPU &cpu, MMU &mmu); // 0x6E
 // 0x6F
-// 0x70
-// 0x71
-// 0x72
-// 0x73
-// 0x74
-// 0x75
+void LD_HL_B(CPU &cpu, MMU &mmu); // 0x70
+void LD_HL_C(CPU &cpu, MMU &mmu); // 0x71
+void LD_HL_D(CPU &cpu, MMU &mmu); // 0x72
+void LD_HL_E(CPU &cpu, MMU &mmu); // 0x73
+void LD_HL_H(CPU &cpu, MMU &mmu); // 0x74
+void LD_HL_L(CPU &cpu, MMU &mmu); // 0x75
 // 0x76
 // 0x77
-// 0x78
-// 0x79
-// 0x7A
-// 0x7B
-// 0x7C
-// 0x7D
-// 0x7E
-// 0x7F
+void LD_A_B(CPU &cpu); // 0x78
+void LD_A_C(CPU &cpu); // 0x79
+void LD_A_D(CPU &cpu); // 0x7A
+void LD_A_E(CPU &cpu); // 0x7B
+void LD_A_H(CPU &cpu); // 0x7C
+void LD_A_L(CPU &cpu); // 0x7D
+void LD_A_HL(CPU &cpu, MMU &mmu); // 0x7E
+void LD_A_A(CPU &cpu); // 0x7F
 // 0x80
 // 0x81
 // 0x82
