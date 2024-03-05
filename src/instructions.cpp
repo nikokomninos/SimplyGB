@@ -13,6 +13,10 @@
 // 0x05
  
 // 0x06
+void LD_B_N(CPU &cpu, MMU &mmu) {
+    cpu.regs.B = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+}
 
 // 0x07
  
@@ -29,6 +33,10 @@
 // 0x0D
  
 // 0x0E
+void LD_C_N(CPU &cpu, MMU &mmu) {
+    cpu.regs.C = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+}
  
 // 0x0F
 
@@ -45,6 +53,10 @@
 // 0x15
  
 // 0x16
+void LD_D_N(CPU &cpu, MMU &mmu) {
+    cpu.regs.D = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+}
  
 // 0x17
  
@@ -61,6 +73,10 @@
 // 0x1D
  
 // 0x1E
+void LD_E_N(CPU &cpu, MMU &mmu) {
+    cpu.regs.E = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+}
  
 // 0x1F
 
@@ -77,6 +93,10 @@
 // 0x25
 
 // 0x26
+void LD_H_N(CPU &cpu, MMU &mmu) {
+    cpu.regs.H = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+}
 
 // 0x27
 
@@ -93,6 +113,10 @@
 // 0x2D
 
 // 0x2E
+void LD_L_N(CPU &cpu, MMU &mmu) {
+    cpu.regs.L = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+}
 
 // 0x2F
 
