@@ -5,6 +5,9 @@
 // 0x01
  
 // 0x02
+void LD_BC_A(CPU &cpu, MMU &mmu) {
+    mmu.bus_write(cpu.get_reg16_bc(), cpu.regs.A);
+}
  
 // 0x03
  
@@ -25,6 +28,9 @@ void LD_B_N(CPU &cpu, MMU &mmu) {
 // 0x09
  
 // 0x0A
+void LD_A_BC(CPU &cpu, MMU &mmu) {
+    cpu.regs.A = mmu.bus_read(cpu.get_reg16_bc());
+}
  
 // 0x0B
  
@@ -45,6 +51,9 @@ void LD_C_N(CPU &cpu, MMU &mmu) {
 // 0x11
  
 // 0x12
+void LD_DE_A(CPU &cpu, MMU &mmu) {
+    mmu.bus_write(cpu.get_reg16_de(), cpu.regs.A);
+}
  
 // 0x13
  
@@ -65,6 +74,9 @@ void LD_D_N(CPU &cpu, MMU &mmu) {
 // 0x19
  
 // 0x1A
+void LD_A_DE(CPU &cpu, MMU &mmu) {
+    cpu.regs.A = mmu.bus_read(cpu.get_reg16_de());
+}
  
 // 0x1B
  
@@ -650,6 +662,9 @@ void LD_A_A(CPU &cpu) {
 // 0xE1
 
 // 0xE2
+void LDH_C_A(CPU &cpu, MMU &mmu) {
+    mmu.bus_write(0xFF00 | cpu.regs.C, cpu.regs.A);
+}
 
 // 0xE3
 
@@ -665,7 +680,20 @@ void LD_A_A(CPU &cpu) {
 
 // 0xE9
 
-// 0xEA
+// 0xEA FIXME bit shift might be wrong, lsb might need swap with msb
+void LD_NN_A(CPU &cpu, MMU &mmu) {
+    u8 lsb, msb;
+    u16 nn;
+
+    lsb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    msb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    nn = (msb << 8) | lsb;
+    mmu.bus_write(nn, cpu.regs.A);
+}
 
 // 0xEB
 
@@ -678,10 +706,19 @@ void LD_A_A(CPU &cpu) {
 // 0xEF
  
 // 0xF0
+void LDH_A_N(CPU &cpu, MMU &mmu) {
+    u8 n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    cpu.regs.A = mmu.bus_read(0xFF00 | n);
+}
 
 // 0xF1
 
 // 0xF2
+void LDH_A_C(CPU &cpu, MMU &mmu) {
+    cpu.regs.A = mmu.bus_read(0xFF00 | cpu.regs.C);
+}
 
 // 0xF3
 
@@ -697,7 +734,20 @@ void LD_A_A(CPU &cpu) {
 
 // 0xF9
 
-// 0xFA
+// 0xFA FIXME bit shift might be wrong, lsb might need swap with msb
+void LD_A_NN(CPU &cpu, MMU &mmu) {
+    u8 lsb, msb;
+    u16 nn;
+
+    lsb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    msb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    nn = (msb << 8) | lsb;
+    cpu.regs.A = mmu.bus_read(nn);
+}
 
 // 0xFB
 
