@@ -2,7 +2,7 @@
 
 // 0x00
  
-// 0x01
+// 0x01 TODO
  
 // 0x02
 void LD_BC_A(CPU &cpu, MMU &mmu) {
@@ -97,6 +97,10 @@ void LD_E_N(CPU &cpu, MMU &mmu) {
 // 0x21
 
 // 0x22
+void LD_HL_PLUS_A(CPU &cpu, MMU &mmu) {
+    mmu.bus_write(cpu.get_reg16_hl(), cpu.regs.A);
+    cpu.set_reg16_hl(cpu.get_reg16_hl() + 1);
+}
 
 // 0x23
 
@@ -117,6 +121,10 @@ void LD_H_N(CPU &cpu, MMU &mmu) {
 // 0x29
 
 // 0x2A
+void LD_A_HL_PLUS(CPU &cpu, MMU &mmu) {
+    cpu.regs.A = mmu.bus_read(cpu.get_reg16_hl());
+    cpu.set_reg16_hl(cpu.get_reg16_hl() + 1);
+}
 
 // 0x2B
 
@@ -137,6 +145,10 @@ void LD_L_N(CPU &cpu, MMU &mmu) {
 // 0x31
 
 // 0x32
+void LD_HL_MINUS_A(CPU &cpu, MMU &mmu) {
+    mmu.bus_write(cpu.get_reg16_hl(), cpu.regs.A);
+    cpu.set_reg16_hl(cpu.get_reg16_hl() - 1);
+}
 
 // 0x33
 
@@ -158,6 +170,10 @@ void LD_HL_N(CPU &cpu, MMU &mmu) {
 // 0x39
 
 // 0x3A
+void LD_A_HL_MINUS(CPU &cpu, MMU &mmu) {
+    cpu.regs.A = mmu.bus_read(cpu.get_reg16_hl());
+    cpu.set_reg16_hl(cpu.get_reg16_hl() - 1);
+}
 
 // 0x3B
 
@@ -658,6 +674,12 @@ void LD_A_A(CPU &cpu) {
 // 0xDF
  
 // 0xE0
+void LDH_N_A(CPU &cpu, MMU &mmu) {
+    u8 n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    mmu.bus_write(0xFF00 | n, cpu.regs.A);
+}
 
 // 0xE1
 
