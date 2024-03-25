@@ -2,7 +2,20 @@
 
 // 0x00
  
-// 0x01 TODO
+// 0x01
+void LD_BC_NN(CPU &cpu, MMU &mmu) {
+    u8 lsb, msb;
+    u16 nn;
+
+    lsb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    msb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    nn = (lsb << 8) | msb;
+    cpu.set_reg16_bc(nn);
+}
  
 // 0x02
 void LD_BC_A(CPU &cpu, MMU &mmu) {
@@ -24,6 +37,25 @@ void LD_B_N(CPU &cpu, MMU &mmu) {
 // 0x07
  
 // 0x08
+void LD_NN_SP(CPU &cpu, MMU &mmu) {
+    u8 lsb, msb;
+    u8 sp_lsb, sp_msb;
+    u16 nn;
+
+    lsb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    msb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    nn = (lsb << 8) | msb;
+    sp_lsb = cpu.regs.SP & 0xFF;
+    sp_msb = (cpu.regs.SP >> 8) & 0xFF;
+
+    mmu.bus_write(nn, sp_lsb);
+    nn += 0x1;
+    mmu.bus_write(nn, sp_msb);
+}
  
 // 0x09
  
@@ -49,6 +81,19 @@ void LD_C_N(CPU &cpu, MMU &mmu) {
 // 0x10
  
 // 0x11
+void LD_DE_NN(CPU &cpu, MMU &mmu) {
+    u8 lsb, msb;
+    u16 nn;
+
+    lsb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    msb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    nn = (lsb << 8) | msb;
+    cpu.set_reg16_de(nn);
+}
  
 // 0x12
 void LD_DE_A(CPU &cpu, MMU &mmu) {
@@ -95,6 +140,19 @@ void LD_E_N(CPU &cpu, MMU &mmu) {
 // 0x20
 
 // 0x21
+void LD_HL_NN(CPU &cpu, MMU &mmu) {
+    u8 lsb, msb;
+    u16 nn;
+
+    lsb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    msb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    nn = (lsb << 8) | msb;
+    cpu.set_reg16_hl(nn);
+}
 
 // 0x22
 void LD_HL_PLUS_A(CPU &cpu, MMU &mmu) {
@@ -143,6 +201,19 @@ void LD_L_N(CPU &cpu, MMU &mmu) {
 // 0x30
 
 // 0x31
+void LD_SP_NN(CPU &cpu, MMU &mmu) {
+    u8 lsb, msb;
+    u16 nn;
+
+    lsb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    msb = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    nn = (lsb << 8) | msb;
+    cpu.regs.SP = nn;
+}
 
 // 0x32
 void LD_HL_MINUS_A(CPU &cpu, MMU &mmu) {
@@ -612,6 +683,16 @@ void LD_A_A(CPU &cpu) {
 // 0xC0
 
 // 0xC1
+void POP_BC(CPU &cpu) {
+    u16 nn;
+    u8 lsb, msb;
+
+    lsb = cpu.stack_pop();
+    msb = cpu.stack_pop();
+    nn = (lsb << 8) | msb;
+
+    cpu.set_reg16_bc(nn);
+}
 
 // 0xC2
 
@@ -620,6 +701,18 @@ void LD_A_A(CPU &cpu) {
 // 0xC4
 
 // 0xC5
+void PUSH_BC(CPU &cpu) {
+    u16 rr;
+    u8 lsb, msb;
+
+    rr = cpu.get_reg16_bc();
+    lsb = rr & 0xFF;
+    msb = (rr >> 8) & 0xFF;
+
+    cpu.regs.SP -= 0x1;
+    cpu.stack_push(lsb);
+    cpu.stack_push(msb);
+}
 
 // 0xC6
 
@@ -644,6 +737,16 @@ void LD_A_A(CPU &cpu) {
 // 0xD0
 
 // 0xD1
+void POP_DE(CPU &cpu) {
+    u16 nn;
+    u8 lsb, msb;
+
+    lsb = cpu.stack_pop();
+    msb = cpu.stack_pop();
+    nn = (lsb << 8) | msb;
+
+    cpu.set_reg16_de(nn);
+}
 
 // 0xD2
 
@@ -652,6 +755,18 @@ void LD_A_A(CPU &cpu) {
 // 0xD4
 
 // 0xD5
+void PUSH_DE(CPU &cpu) {
+    u16 rr;
+    u8 lsb, msb;
+
+    rr = cpu.get_reg16_de();
+    lsb = rr & 0xFF;
+    msb = (rr >> 8) & 0xFF;
+
+    cpu.regs.SP -= 0x1;
+    cpu.stack_push(lsb);
+    cpu.stack_push(msb);
+}
 
 // 0xD6
 
@@ -682,6 +797,16 @@ void LDH_N_A(CPU &cpu, MMU &mmu) {
 }
 
 // 0xE1
+void POP_HL(CPU &cpu) {
+    u16 nn;
+    u8 lsb, msb;
+
+    lsb = cpu.stack_pop();
+    msb = cpu.stack_pop();
+    nn = (lsb << 8) | msb;
+
+    cpu.set_reg16_hl(nn);
+}
 
 // 0xE2
 void LDH_C_A(CPU &cpu, MMU &mmu) {
@@ -693,6 +818,18 @@ void LDH_C_A(CPU &cpu, MMU &mmu) {
 // 0xE4
 
 // 0xE5
+void PUSH_HL(CPU &cpu) {
+    u16 rr;
+    u8 lsb, msb;
+
+    rr = cpu.get_reg16_hl();
+    lsb = rr & 0xFF;
+    msb = (rr >> 8) & 0xFF;
+
+    cpu.regs.SP -= 0x1;
+    cpu.stack_push(lsb);
+    cpu.stack_push(msb);
+}
 
 // 0xE6
 
@@ -736,6 +873,16 @@ void LDH_A_N(CPU &cpu, MMU &mmu) {
 }
 
 // 0xF1
+void POP_AF(CPU &cpu) {
+    u16 nn;
+    u8 lsb, msb;
+
+    lsb = cpu.stack_pop();
+    msb = cpu.stack_pop();
+    nn = (lsb << 8) | msb;
+
+    cpu.set_reg16_af(nn);
+}
 
 // 0xF2
 void LDH_A_C(CPU &cpu, MMU &mmu) {
@@ -747,14 +894,45 @@ void LDH_A_C(CPU &cpu, MMU &mmu) {
 // 0xF4
 
 // 0xF5
+void PUSH_AF(CPU &cpu) {
+    u16 rr;
+    u8 lsb, msb;
+
+    rr = cpu.get_reg16_af();
+    lsb = rr & 0xFF;
+    msb = (rr >> 8) & 0xFF;
+
+    cpu.regs.SP -= 0x1;
+    cpu.stack_push(lsb);
+    cpu.stack_push(msb);
+}
 
 // 0xF6
 
 // 0xF7
 
 // 0xF8
+void LD_HL_SP_PLUS_E(CPU &cpu, MMU &mmu) {
+    u16 result, carry_per_bit;
+    i8 e;
+
+    e = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.SP + e;
+    carry_per_bit = result;
+    cpu.set_reg16_hl(result);
+
+    cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xF9
+void LD_SP_HL(CPU &cpu) {
+    cpu.regs.SP = cpu.get_reg16_hl();
+}
 
 // 0xFA FIXME bit shift might be wrong, lsb might need swap with msb
 void LD_A_NN(CPU &cpu, MMU &mmu) {

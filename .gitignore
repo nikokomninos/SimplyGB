@@ -1,1 +1,4 @@
 *.gb
+.cache/
+.ccls-cache/
+build/

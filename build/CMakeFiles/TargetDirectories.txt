@@ -1,3 +1,0 @@
-/home/nk/Documents/Repos/SimplyGB/build/CMakeFiles/SimplyGB.dir
-/home/nk/Documents/Repos/SimplyGB/build/CMakeFiles/edit_cache.dir
-/home/nk/Documents/Repos/SimplyGB/build/CMakeFiles/rebuild_cache.dir

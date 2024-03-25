@@ -4,14 +4,14 @@
 #include <cpu.h>
 
 // 0x00
-// 0x01
+void LD_BC_NN(CPU &cpu, MMU &mmu); // 0x01
 void LD_BC_A(CPU &cpu, MMU &mmu); // 0x02
 // 0x03
 // 0x04
 // 0x05
 void LD_B_N(CPU &cpu, MMU &mmu); // 0x06
 // 0x07
-// 0x08
+void LD_NN_SP(CPU &cpu, MMU &mmu); // 0x08
 // 0x09
 void LD_A_BC(CPU &cpu, MMU &mmu); // 0x0A
 // 0x0B
@@ -20,7 +20,7 @@ void LD_A_BC(CPU &cpu, MMU &mmu); // 0x0A
 void LD_C_N(CPU &cpu, MMU &mmu); // 0x0E
 // 0x0F
 // 0x10
-// 0x11
+void LD_DE_NN(CPU &cpu, MMU &mmu); // 0x11
 void LD_DE_A(CPU &cpu, MMU &mmu); // 0x12
 // 0x13
 // 0x14
@@ -36,7 +36,7 @@ void LD_A_DE(CPU &cpu, MMU &mmu); // 0x1A
 void LD_E_N(CPU &cpu, MMU &mmu); // 0x1E
 // 0x1F
 // 0x20
-// 0x21
+void LD_HL_NN(CPU &cpu, MMU &mmu); // 0x21
 // 0x22
 // 0x23
 // 0x24
@@ -52,7 +52,7 @@ void LD_H_N(CPU &cpu, MMU &mmu); // 0x26
 void LD_L_N(CPU &cpu, MMU &mmu); // 0x2E
 // 0x2F
 // 0x30
-// 0x31
+void LD_SP_NN(CPU &cpu, MMU &mmu); // 0x31
 // 0x32
 // 0x33
 // 0x34
@@ -196,11 +196,11 @@ void LD_A_A(CPU &cpu); // 0x7F
 // 0xBE
 // 0xBF
 // 0xC0
-// 0xC1
+void POP_BC(CPU &cpu); // 0xC1
 // 0xC2
 // 0xC3
 // 0xC4
-// 0xC5
+void PUSH_BC(CPU &cpu); // 0xC5
 // 0xC6
 // 0xC7
 // 0xC8
@@ -212,11 +212,11 @@ void LD_A_A(CPU &cpu); // 0x7F
 // 0xCE
 // 0xCF
 // 0xD0
-// 0xD1
+void POP_DE(CPU &cpu); // 0xD1
 // 0xD2
 // 0xD3
 // 0xD4
-// 0xD5
+void PUSH_DE(CPU &cpu); // 0xD5
 // 0xD6
 // 0xD7
 // 0xD8
@@ -228,11 +228,11 @@ void LD_A_A(CPU &cpu); // 0x7F
 // 0xDE
 // 0xDF
 // 0xE0
-// 0xE1
+void POP_HL(CPU &cpu); // 0xE1
 void LDH_C_A(CPU &cpu, MMU &mmu); // 0xE2
 // 0xE3
 // 0xE4
-// 0xE5
+void PUSH_HL(CPU &cpu); // 0xE5
 // 0xE6
 // 0xE7
 // 0xE8
@@ -244,15 +244,15 @@ void LD_NN_A(CPU &cpu, MMU &mmu); // 0xEA
 // 0xEE
 // 0xEF
 void LDH_A_N(CPU &cpu, MMU &mmu); // 0xF0
-// 0xF1
+void POP_AF(CPU &cpu); // 0xF1
 void LDH_A_C(CPU &cpu, MMU &mmu); // 0xF2
 // 0xF3
 // 0xF4
-// 0xF5
+void PUSH_AF(CPU &cpu); // 0xF5
 // 0xF6
 // 0xF7
-// 0xF8
-// 0xF9
+void LD_HL_SP_PLUS_E(CPU &cpu, MMU &mmu); // 0xF8
+void LD_SP_HL(CPU &cpu, MMU &mmu); // 0xF9
 void LD_A_NN(CPU &cpu, MMU &mmu); // 0xFA
 // 0xFB
 // 0xFC

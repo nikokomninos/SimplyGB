@@ -1,5 +1,7 @@
 #pragma once
 
+#define STACK_SIZE 65535
+
 #include <common.h>
 #include<mmu.h>
 
@@ -34,8 +36,11 @@ public:
         void set_reg16_de(u16 nn);
         void set_reg16_hl(u16 nn);
 
+        void stack_push(u8 n);
+        u8 stack_pop();
+
         registers regs;
         register_flags flags;
-        std::stack<u8> stack;
+        u8 stack[STACK_SIZE];
         u8 curr_opcode;
 };

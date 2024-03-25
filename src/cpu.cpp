@@ -1,8 +1,8 @@
 #include <cpu.h>
-#include <unistd.h>
 
 CPU::CPU(){
     regs.PC = 0x100;
+    regs.SP = STACK_SIZE - 1;
 }
 
 void CPU::cpu_fetch(u16 addr, MMU& mmu) {
@@ -53,4 +53,16 @@ u16 CPU::get_reg16_hl() {
 void CPU::set_reg16_hl(u16 nn) {
     regs.H = (nn & 0xFF00 >> 8);
     regs.L = (nn & 0x00FF);
+}
+
+void CPU::stack_push(u8 n) {
+    stack[regs.SP] = n;
+    regs.SP -= 0x1;
+}
+
+u8 CPU::stack_pop() {
+    u8 n = stack[regs.SP];
+    stack[regs.SP] = 0x0;
+    regs.SP += 0x1;
+    return n;
 }
