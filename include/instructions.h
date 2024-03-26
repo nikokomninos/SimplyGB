@@ -7,55 +7,55 @@
 void LD_BC_NN(CPU &cpu, MMU &mmu); // 0x01
 void LD_BC_A(CPU &cpu, MMU &mmu); // 0x02
 // 0x03
-// 0x04
-// 0x05
+void INC_B(CPU &cpu); // 0x04
+void DEC_B(CPU &cpu); // 0x05
 void LD_B_N(CPU &cpu, MMU &mmu); // 0x06
 // 0x07
 void LD_NN_SP(CPU &cpu, MMU &mmu); // 0x08
 // 0x09
 void LD_A_BC(CPU &cpu, MMU &mmu); // 0x0A
 // 0x0B
-// 0x0C
-// 0x0D
+void INC_C(CPU &cpu); // 0x0C
+void DEC_C(CPU &cpu); // 0x0D
 void LD_C_N(CPU &cpu, MMU &mmu); // 0x0E
 // 0x0F
 // 0x10
 void LD_DE_NN(CPU &cpu, MMU &mmu); // 0x11
 void LD_DE_A(CPU &cpu, MMU &mmu); // 0x12
 // 0x13
-// 0x14
-// 0x15
+void INC_D(CPU &cpu); // 0x14
+void DEC_D(CPU &cpu); // 0x15
 void LD_D_N(CPU &cpu, MMU &mmu); // 0x16
 // 0x17
 // 0x18
 // 0x19
 void LD_A_DE(CPU &cpu, MMU &mmu); // 0x1A
 // 0x1B
-// 0x1C
-// 0x1D
+void INC_E(CPU &cpu); // 0x1C
+void DEC_E(CPU &cpu); // 0x1D
 void LD_E_N(CPU &cpu, MMU &mmu); // 0x1E
 // 0x1F
 // 0x20
 void LD_HL_NN(CPU &cpu, MMU &mmu); // 0x21
 // 0x22
 // 0x23
-// 0x24
-// 0x25
+void INC_H(CPU &cpu); // 0x24
+void DEC_H(CPU &cpu); // 0x25
 void LD_H_N(CPU &cpu, MMU &mmu); // 0x26
 // 0x27
 // 0x28
 // 0x29
 // 0x2A
 // 0x2B
-// 0x2C
-// 0x2D
+void INC_L(CPU &cpu); // 0x2C
+void DEC_L(CPU &cpu); // 0x2D
 void LD_L_N(CPU &cpu, MMU &mmu); // 0x2E
 // 0x2F
 // 0x30
 void LD_SP_NN(CPU &cpu, MMU &mmu); // 0x31
 // 0x32
 // 0x33
-// 0x34
+void INC_HL(CPU &cpu, MMU &mmu); // 0x34
 // 0x35
 void LD_HL_N(CPU &cpu, MMU &mmu); // 0x36
 // 0x37
@@ -63,8 +63,8 @@ void LD_HL_N(CPU &cpu, MMU &mmu); // 0x36
 // 0x39
 // 0x3A
 // 0x3B
-// 0x3C
-// 0x3D
+void INC_A(CPU &cpu); // 0x3C
+void DEC_A(CPU &cpu); // 0x3D
 // 0x3E
 // 0x3F
 void LD_B_B(CPU &cpu); // 0x40
@@ -131,46 +131,46 @@ void LD_A_H(CPU &cpu); // 0x7C
 void LD_A_L(CPU &cpu); // 0x7D
 void LD_A_HL(CPU &cpu, MMU &mmu); // 0x7E
 void LD_A_A(CPU &cpu); // 0x7F
-// 0x80
-// 0x81
-// 0x82
-// 0x83
-// 0x84
-// 0x85
-// 0x86
-// 0x87
-// 0x88
-// 0x89
-// 0x8A
-// 0x8B
-// 0x8C
-// 0x8D
-// 0x8E
-// 0x8F
-// 0x90
-// 0x91
-// 0x92
-// 0x93
-// 0x94
-// 0x95
-// 0x96
-// 0x97
-// 0x98
-// 0x99
-// 0x9A
-// 0x9B
-// 0x9C
-// 0x9D
-// 0x9E
-// 0x9F
-// 0xA0
-// 0xA1
-// 0xA2
-// 0xA3
-// 0xA4
-// 0xA5
-// 0xA6
-// 0xA7
+void ADD_A_B(CPU &cpu); // 0x80
+void ADD_A_C(CPU &cpu); // 0x81
+void ADD_A_D(CPU &cpu); // 0x82
+void ADD_A_E(CPU &cpu); // 0x83
+void ADD_A_H(CPU &cpu); // 0x84
+void ADD_A_L(CPU &cpu); // 0x85
+void ADD_A_HL(CPU &cpu, MMU &mmu); // 0x86
+void ADD_A_A(CPU &cpu); // 0x87
+void ADC_A_B(CPU &cpu); // 0x88
+void ADC_A_C(CPU &cpu); // 0x89
+void ADC_A_D(CPU &cpu); // 0x8A
+void ADC_A_E(CPU &cpu); // 0x8B
+void ADC_A_H(CPU &cpu); // 0x8C
+void ADC_A_L(CPU &cpu); // 0x8D
+void ADC_A_HL(CPU &cpu, MMU &mmu); // 0x8E
+void ADC_A_A(CPU &cpu); // 0x8F
+void SUB_A_B(CPU &cpu); // 0x90
+void SUB_A_C(CPU &cpu); // 0x91
+void SUB_A_D(CPU &cpu); // 0x92
+void SUB_A_E(CPU &cpu); // 0x93
+void SUB_A_H(CPU &cpu); // 0x94
+void SUB_A_L(CPU &cpu); // 0x95
+void SUB_A_HL(CPU &cpu, MMU &mmu); // 0x96
+void SUB_A_A(CPU &cpu); // 0x97
+void SBC_A_B(CPU &cpu); // 0x98
+void SBC_A_C(CPU &cpu); // 0x99
+void SBC_A_D(CPU &cpu); // 0x9A
+void SBC_A_E(CPU &cpu); // 0x9B
+void SBC_A_H(CPU &cpu); // 0x9C
+void SBC_A_L(CPU &cpu); // 0x9D
+void SBC_A_HL(CPU &cpu, MMU &mmu); // 0x9E
+void SBC_A_A(CPU &cpu); // 0x9F
+void AND_B(CPU &cpu); // 0xA0
+void AND_C(CPU &cpu); // 0xA1
+void AND_D(CPU &cpu); // 0xA2
+void AND_E(CPU &cpu); // 0xA3
+void AND_H(CPU &cpu); // 0xA4
+void AND_L(CPU &cpu); // 0xA5
+void AND_HL(CPU &cpu, MMU &mmu); // 0xA6
+void AND_A(CPU &cpu); // 0xA7
 // 0xA8
 // 0xA9
 // 0xAA
@@ -187,21 +187,21 @@ void LD_A_A(CPU &cpu); // 0x7F
 // 0xB5
 // 0xB6
 // 0xB7
-// 0xB8
-// 0xB9
-// 0xBA
-// 0xBB
-// 0xBC
-// 0xBD
+void CP_B(CPU &cpu); // 0xB8
+void CP_C(CPU &cpu); // 0xB9
+void CP_D(CPU &cpu); // 0xBA
+void CP_E(CPU &cpu); // 0xBB
+void CP_H(CPU &cpu); // 0xBC
+void CP_L(CPU &cpu); // 0xBD
 // 0xBE
-// 0xBF
+void CP_A(CPU &cpu); // 0xBF
 // 0xC0
 void POP_BC(CPU &cpu); // 0xC1
 // 0xC2
 // 0xC3
 // 0xC4
 void PUSH_BC(CPU &cpu); // 0xC5
-// 0xC6
+void ADD_A_N(CPU &cpu, MMU &mmu); // 0xC6
 // 0xC7
 // 0xC8
 // 0xC9
@@ -209,7 +209,7 @@ void PUSH_BC(CPU &cpu); // 0xC5
 // 0xCB
 // 0xCC
 // 0xCD
-// 0xCE
+void ADC_A_N(CPU &cpu, MMU &mmu); // 0xCE
 // 0xCF
 // 0xD0
 void POP_DE(CPU &cpu); // 0xD1
@@ -217,7 +217,7 @@ void POP_DE(CPU &cpu); // 0xD1
 // 0xD3
 // 0xD4
 void PUSH_DE(CPU &cpu); // 0xD5
-// 0xD6
+void SUB_A_N(CPU &cpu, MMU &mmu); // 0xD6
 // 0xD7
 // 0xD8
 // 0xD9
@@ -225,7 +225,7 @@ void PUSH_DE(CPU &cpu); // 0xD5
 // 0xDB
 // 0xDC
 // 0xDD
-// 0xDE
+void SBC_A_N(CPU &cpu, MMU &mmu); // 0xDE
 // 0xDF
 // 0xE0
 void POP_HL(CPU &cpu); // 0xE1
@@ -233,7 +233,7 @@ void LDH_C_A(CPU &cpu, MMU &mmu); // 0xE2
 // 0xE3
 // 0xE4
 void PUSH_HL(CPU &cpu); // 0xE5
-// 0xE6
+void AND_N(CPU &cpu, MMU &mmu); // 0xE6
 // 0xE7
 // 0xE8
 // 0xE9
@@ -257,5 +257,5 @@ void LD_A_NN(CPU &cpu, MMU &mmu); // 0xFA
 // 0xFB
 // 0xFC
 // 0xFD
-// 0xFE
+void CP_N(CPU &cpu, MMU &mmu); // 0xFE
 // 0xFF

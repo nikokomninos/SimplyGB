@@ -25,8 +25,30 @@ void LD_BC_A(CPU &cpu, MMU &mmu) {
 // 0x03
  
 // 0x04
+void INC_B(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.B + 1;
+    carry_per_bit = result;
+    cpu.regs.B = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x05
+void DEC_B(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.B - 1;
+    carry_per_bit = result;
+    cpu.regs.B = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x06
 void LD_B_N(CPU &cpu, MMU &mmu) {
@@ -67,8 +89,30 @@ void LD_A_BC(CPU &cpu, MMU &mmu) {
 // 0x0B
  
 // 0x0C
+void INC_C(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.C + 1;
+    carry_per_bit = result;
+    cpu.regs.C = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x0D
+void DEC_C(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.C - 1;
+    carry_per_bit = result;
+    cpu.regs.C = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x0E
 void LD_C_N(CPU &cpu, MMU &mmu) {
@@ -103,8 +147,30 @@ void LD_DE_A(CPU &cpu, MMU &mmu) {
 // 0x13
  
 // 0x14
+void INC_D(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.D + 1;
+    carry_per_bit = result;
+    cpu.regs.D = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x15
+void DEC_D(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.D - 1;
+    carry_per_bit = result;
+    cpu.regs.D = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x16
 void LD_D_N(CPU &cpu, MMU &mmu) {
@@ -126,8 +192,30 @@ void LD_A_DE(CPU &cpu, MMU &mmu) {
 // 0x1B
  
 // 0x1C
+void INC_E(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.E + 1;
+    carry_per_bit = result;
+    cpu.regs.E = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x1D
+void DEC_E(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.E - 1;
+    carry_per_bit = result;
+    cpu.regs.E = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
  
 // 0x1E
 void LD_E_N(CPU &cpu, MMU &mmu) {
@@ -163,8 +251,30 @@ void LD_HL_PLUS_A(CPU &cpu, MMU &mmu) {
 // 0x23
 
 // 0x24
+void INC_H(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.H + 1;
+    carry_per_bit = result;
+    cpu.regs.H = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x25
+void DEC_H(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.H - 1;
+    carry_per_bit = result;
+    cpu.regs.H = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x26
 void LD_H_N(CPU &cpu, MMU &mmu) {
@@ -187,8 +297,30 @@ void LD_A_HL_PLUS(CPU &cpu, MMU &mmu) {
 // 0x2B
 
 // 0x2C
+void INC_L(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.L + 1;
+    carry_per_bit = result;
+    cpu.regs.L = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x2D
+void DEC_L(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.L - 1;
+    carry_per_bit = result;
+    cpu.regs.L = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x2E
 void LD_L_N(CPU &cpu, MMU &mmu) {
@@ -224,8 +356,30 @@ void LD_HL_MINUS_A(CPU &cpu, MMU &mmu) {
 // 0x33
 
 // 0x34
+void INC_HL(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit;
+
+    result = mmu.bus_read(cpu.get_reg16_hl()) + 1;
+    carry_per_bit = result;
+    mmu.bus_write(cpu.get_reg16_hl(), result);
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x35
+void DEC_HL(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit;
+
+    result = mmu.bus_read(cpu.get_reg16_hl()) - 1;
+    carry_per_bit = result;
+    mmu.bus_write(cpu.get_reg16_hl(), result);
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x36
 void LD_HL_N(CPU &cpu, MMU &mmu) {
@@ -249,8 +403,30 @@ void LD_A_HL_MINUS(CPU &cpu, MMU &mmu) {
 // 0x3B
 
 // 0x3C
+void INC_A(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + 1;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x3D
+void DEC_A(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - 1;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+}
 
 // 0x3E
 
@@ -553,84 +729,540 @@ void LD_A_A(CPU &cpu) {
 }
  
 // 0x80
+void ADD_A_B(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.B;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x81
+void ADD_A_C(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x82
+void ADD_A_D(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.D;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x83
+void ADD_A_E(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.E;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x84
+void ADD_A_H(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.H;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x85
+void ADD_A_L(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.L;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x86
+void ADD_A_HL(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit;
 
-// 0x87
+    result = cpu.regs.A + mmu.bus_read(cpu.get_reg16_hl());
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
+
+// 0x87 FIXME result may need to be 16-bit
+void ADD_A_A(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.A;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x88
+void ADC_A_B(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.B + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x89
+void ADC_A_C(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.C + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x8A
+void ADC_A_D(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.D + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x8B
+void ADC_A_E(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.E + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x8C
+void ADC_A_H(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.H + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x8D
+void ADC_A_L(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.L + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x8E
+void ADC_A_HL(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + mmu.bus_read(cpu.get_reg16_hl()) + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x8F
+void ADC_A_A(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A + cpu.regs.A + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x90
+void SUB_A_B(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.B;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x91
+void SUB_A_C(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x92
+void SUB_A_D(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.D;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x93
+void SUB_A_E(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.E;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x94
+void SUB_A_H(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.H;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x95
+void SUB_A_L(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.L;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x96
+void SUB_A_HL(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit;
 
-// 0x97
+    result = cpu.regs.A - mmu.bus_read(cpu.get_reg16_hl());
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
+
+// 0x97 FIXME would always give zero?
+void SUB_A_A(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.A;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x98
+void SBC_A_B(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.B - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x99
+void SBC_A_C(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.C - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x9A
+void SBC_A_D(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.D - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x9B
+void SBC_A_E(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.E - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x9C
+void SBC_A_H(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.H - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x9D
+void SBC_A_L(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.L - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x9E
+void SBC_A_HL(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - mmu.bus_read(cpu.get_reg16_hl()) - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x9F
+void SBC_A_A(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.A - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
  
 // 0xA0
+void AND_B(CPU &cpu) {
+    u8 result = cpu.regs.A & cpu.regs.B;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA1
+void AND_C(CPU &cpu) {
+    u8 result = cpu.regs.A & cpu.regs.C;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA2
+void AND_D(CPU &cpu) {
+    u8 result = cpu.regs.A & cpu.regs.D;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA3
+void AND_E(CPU &cpu) {
+    u8 result = cpu.regs.A & cpu.regs.E;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA4
+void AND_H(CPU &cpu) {
+    u8 result = cpu.regs.A & cpu.regs.H;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA5
+void AND_L(CPU &cpu) {
+    u8 result = cpu.regs.A & cpu.regs.L;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA6
+void AND_HL(CPU &cpu, MMU &mmu) {
+    u8 result = cpu.regs.A & mmu.bus_read(cpu.get_reg16_hl());
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA7
+void AND_A(CPU &cpu) {
+    u8 result = cpu.regs.A & cpu.regs.A;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xA8
 
@@ -662,23 +1294,119 @@ void LD_A_A(CPU &cpu) {
 
 // 0xB6
 
-// 0xB7
+// 0xB7 TODO
 
 // 0xB8
+void CP_B(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.B;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xB9
+void CP_C(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xBA
+void CP_D(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.D;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xBB
+void CP_E(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.E;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xBC
+void CP_H(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.H;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xBD
+void CP_L(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.L;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xBE
+void CP_HL(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - mmu.bus_read(cpu.get_reg16_hl());
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xBF
+void CP_A(CPU &cpu) {
+    u8 result, carry_per_bit;
+
+    result = cpu.regs.A - cpu.regs.A;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xC0
 
@@ -715,6 +1443,21 @@ void PUSH_BC(CPU &cpu) {
 }
 
 // 0xC6
+void ADD_A_N(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A + n;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xC7
 
@@ -731,6 +1474,21 @@ void PUSH_BC(CPU &cpu) {
 // 0xCD
 
 // 0xCE
+void ADC_A_N(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A + n + cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xCF
  
@@ -769,6 +1527,21 @@ void PUSH_DE(CPU &cpu) {
 }
 
 // 0xD6
+void SUB_A_N(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A - n;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xD7
 
@@ -785,6 +1558,21 @@ void PUSH_DE(CPU &cpu) {
 // 0xDD
 
 // 0xDE
+void SBC_A_N(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A - n - cpu.flags.C;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xDF
  
@@ -832,6 +1620,20 @@ void PUSH_HL(CPU &cpu) {
 }
 
 // 0xE6
+void AND_N(CPU &cpu, MMU &mmu) {
+    u8 result, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A & n;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 1;
+    cpu.flags.C = 0;
+}
 
 // 0xE7
 
@@ -956,5 +1758,20 @@ void LD_A_NN(CPU &cpu, MMU &mmu) {
 // 0xFD
 
 // 0xFE
+void CP_N(CPU &cpu, MMU &mmu) {
+    u8 result, carry_per_bit, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A - n;
+    carry_per_bit = result;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 1;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xFF
