@@ -6,15 +6,15 @@
 // 0x00
 void LD_BC_NN(CPU &cpu, MMU &mmu); // 0x01
 void LD_BC_A(CPU &cpu, MMU &mmu); // 0x02
-// 0x03
+void INC_BC(CPU &cpu); // 0x03
 void INC_B(CPU &cpu); // 0x04
 void DEC_B(CPU &cpu); // 0x05
 void LD_B_N(CPU &cpu, MMU &mmu); // 0x06
 // 0x07
 void LD_NN_SP(CPU &cpu, MMU &mmu); // 0x08
-// 0x09
+void ADD_HL_BC(CPU &cpu); // 0x09
 void LD_A_BC(CPU &cpu, MMU &mmu); // 0x0A
-// 0x0B
+void DEC_BC(CPU &cpu); // 0x0B
 void INC_C(CPU &cpu); // 0x0C
 void DEC_C(CPU &cpu); // 0x0D
 void LD_C_N(CPU &cpu, MMU &mmu); // 0x0E
@@ -22,15 +22,15 @@ void LD_C_N(CPU &cpu, MMU &mmu); // 0x0E
 // 0x10
 void LD_DE_NN(CPU &cpu, MMU &mmu); // 0x11
 void LD_DE_A(CPU &cpu, MMU &mmu); // 0x12
-// 0x13
+void INC_DE(CPU &cpu); // 0x13
 void INC_D(CPU &cpu); // 0x14
 void DEC_D(CPU &cpu); // 0x15
 void LD_D_N(CPU &cpu, MMU &mmu); // 0x16
 // 0x17
 // 0x18
-// 0x19
+void ADD_HL_DE(CPU &cpu); // 0x19
 void LD_A_DE(CPU &cpu, MMU &mmu); // 0x1A
-// 0x1B
+void DEC_DE(CPU &cpu); // 0x1B
 void INC_E(CPU &cpu); // 0x1C
 void DEC_E(CPU &cpu); // 0x1D
 void LD_E_N(CPU &cpu, MMU &mmu); // 0x1E
@@ -38,15 +38,15 @@ void LD_E_N(CPU &cpu, MMU &mmu); // 0x1E
 // 0x20
 void LD_HL_NN(CPU &cpu, MMU &mmu); // 0x21
 // 0x22
-// 0x23
+void INC_HL(CPU &cpu); // 0x23
 void INC_H(CPU &cpu); // 0x24
 void DEC_H(CPU &cpu); // 0x25
 void LD_H_N(CPU &cpu, MMU &mmu); // 0x26
 // 0x27
 // 0x28
-// 0x29
+void ADD_HL_HL(CPU &cpu); // 0x29
 // 0x2A
-// 0x2B
+void DEC_HL(CPU &cpu); // 0x2B
 void INC_L(CPU &cpu); // 0x2C
 void DEC_L(CPU &cpu); // 0x2D
 void LD_L_N(CPU &cpu, MMU &mmu); // 0x2E
@@ -54,15 +54,15 @@ void CPL(CPU & cpu); // 0x2F
 // 0x30
 void LD_SP_NN(CPU &cpu, MMU &mmu); // 0x31
 // 0x32
-// 0x33
+void INC_SP(CPU &cpu); // 0x33
 void INC_HL(CPU &cpu, MMU &mmu); // 0x34
 // 0x35
 void LD_HL_N(CPU &cpu, MMU &mmu); // 0x36
 void SCF(CPU &cpu); // 0x37
 // 0x38
-// 0x39
+void ADD_HL_SP(CPU &cpu); // 0x39
 // 0x3A
-// 0x3B
+void DEC_SP(CPU &cpu); // 0x3B
 void INC_A(CPU &cpu); // 0x3C
 void DEC_A(CPU &cpu); // 0x3D
 // 0x3E
@@ -235,7 +235,7 @@ void LDH_C_A(CPU &cpu, MMU &mmu); // 0xE2
 void PUSH_HL(CPU &cpu); // 0xE5
 void AND_N(CPU &cpu, MMU &mmu); // 0xE6
 // 0xE7
-// 0xE8
+void ADD_SP_E(CPU &cpu, MMU &mmu); // 0xE8
 // 0xE9
 void LD_NN_A(CPU &cpu, MMU &mmu); // 0xEA
 // 0xEB

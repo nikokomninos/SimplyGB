@@ -23,6 +23,9 @@ void LD_BC_A(CPU &cpu, MMU &mmu) {
 }
  
 // 0x03
+void INC_BC(CPU &cpu) {
+    cpu.set_reg16_bc(cpu.get_reg16_bc() + 1);
+}
  
 // 0x04
 void INC_B(CPU &cpu) {
@@ -80,6 +83,17 @@ void LD_NN_SP(CPU &cpu, MMU &mmu) {
 }
  
 // 0x09
+void ADD_HL_BC(CPU &cpu) {
+    u16 result, carry_per_bit;
+
+    result = cpu.get_reg16_hl() + cpu.get_reg16_bc();
+    carry_per_bit = result;
+    cpu.set_reg16_hl(result);
+
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 11) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 15) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
  
 // 0x0A
 void LD_A_BC(CPU &cpu, MMU &mmu) {
@@ -87,6 +101,9 @@ void LD_A_BC(CPU &cpu, MMU &mmu) {
 }
  
 // 0x0B
+void DEC_BC(CPU &cpu) {
+    cpu.set_reg16_bc(cpu.get_reg16_bc() - 1);
+}
  
 // 0x0C
 void INC_C(CPU &cpu) {
@@ -145,6 +162,9 @@ void LD_DE_A(CPU &cpu, MMU &mmu) {
 }
  
 // 0x13
+void INC_DE(CPU &cpu) {
+    cpu.set_reg16_de(cpu.get_reg16_de() + 1);
+}
  
 // 0x14
 void INC_D(CPU &cpu) {
@@ -183,6 +203,17 @@ void LD_D_N(CPU &cpu, MMU &mmu) {
 // 0x18
  
 // 0x19
+void ADD_HL_DE(CPU &cpu) {
+    u16 result, carry_per_bit;
+
+    result = cpu.get_reg16_hl() + cpu.get_reg16_de();
+    carry_per_bit = result;
+    cpu.set_reg16_hl(result);
+
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 11) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 15) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
  
 // 0x1A
 void LD_A_DE(CPU &cpu, MMU &mmu) {
@@ -190,6 +221,9 @@ void LD_A_DE(CPU &cpu, MMU &mmu) {
 }
  
 // 0x1B
+void DEC_DE(CPU &cpu) {
+    cpu.set_reg16_de(cpu.get_reg16_de() - 1);
+}
  
 // 0x1C
 void INC_E(CPU &cpu) {
@@ -249,6 +283,9 @@ void LD_HL_PLUS_A(CPU &cpu, MMU &mmu) {
 }
 
 // 0x23
+void INC_HL(CPU &cpu) {
+    cpu.set_reg16_hl(cpu.get_reg16_hl() + 1);
+}
 
 // 0x24
 void INC_H(CPU &cpu) {
@@ -287,6 +324,17 @@ void LD_H_N(CPU &cpu, MMU &mmu) {
 // 0x28
 
 // 0x29
+void ADD_HL_HL(CPU &cpu) {
+    u16 result, carry_per_bit;
+
+    result = cpu.get_reg16_hl() + cpu.get_reg16_hl();
+    carry_per_bit = result;
+    cpu.set_reg16_hl(result);
+
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 11) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 15) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x2A
 void LD_A_HL_PLUS(CPU &cpu, MMU &mmu) {
@@ -295,6 +343,9 @@ void LD_A_HL_PLUS(CPU &cpu, MMU &mmu) {
 }
 
 // 0x2B
+void DEC_HL(CPU &cpu) {
+    cpu.set_reg16_hl(cpu.get_reg16_hl() - 1);
+}
 
 // 0x2C
 void INC_L(CPU &cpu) {
@@ -359,6 +410,9 @@ void LD_HL_MINUS_A(CPU &cpu, MMU &mmu) {
 }
 
 // 0x33
+void INC_SP(CPU &cpu) {
+    cpu.regs.SP += 0x1;
+}
 
 // 0x34
 void INC_HL(CPU &cpu, MMU &mmu) {
@@ -403,6 +457,17 @@ void SCF(CPU &cpu) {
 // 0x38
 
 // 0x39
+void ADD_HL_SP(CPU &cpu) {
+    u16 result, carry_per_bit;
+
+    result = cpu.get_reg16_hl() + cpu.regs.SP;
+    carry_per_bit = result;
+    cpu.set_reg16_hl(result);
+
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 11) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 15) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0x3A
 void LD_A_HL_MINUS(CPU &cpu, MMU &mmu) {
@@ -411,6 +476,9 @@ void LD_A_HL_MINUS(CPU &cpu, MMU &mmu) {
 }
 
 // 0x3B
+void DEC_SP(CPU &cpu) {
+    cpu.regs.SP -= 0x1;
+}
 
 // 0x3C
 void INC_A(CPU &cpu) {
@@ -1797,6 +1865,22 @@ void AND_N(CPU &cpu, MMU &mmu) {
 // 0xE7
 
 // 0xE8
+void ADD_SP_E(CPU &cpu, MMU &mmu) {
+    u16 result, carry_per_bit;
+    i8 e;
+
+    e = (i8)mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.SP + e;
+    carry_per_bit = result;
+    cpu.regs.SP = result;
+
+    cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    ((carry_per_bit >> 3) & 0x01) == 0x1 ? cpu.flags.H = 1 : cpu.flags.H = 0;
+    ((carry_per_bit >> 7) & 0x01) == 0x1 ? cpu.flags.C = 1 : cpu.flags.C = 0;
+}
 
 // 0xE9
 
@@ -1905,7 +1989,7 @@ void LD_HL_SP_PLUS_E(CPU &cpu, MMU &mmu) {
     u16 result, carry_per_bit;
     i8 e;
 
-    e = mmu.bus_read(cpu.regs.PC);
+    e = (i8)mmu.bus_read(cpu.regs.PC);
     cpu.regs.PC += 0x1;
 
     result = cpu.regs.SP + e;
