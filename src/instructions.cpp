@@ -282,7 +282,7 @@ void LD_H_N(CPU &cpu, MMU &mmu) {
     cpu.regs.PC += 0x1;
 }
 
-// 0x27
+// 0x27 TODO figure out implementation
 
 // 0x28
 
@@ -329,6 +329,11 @@ void LD_L_N(CPU &cpu, MMU &mmu) {
 }
 
 // 0x2F
+void CPL(CPU & cpu) {
+    cpu.regs.A = ~cpu.regs.A;
+    cpu.flags.N = 1;
+    cpu.flags.H = 1;
+}
 
 // 0x30
 
@@ -389,6 +394,11 @@ void LD_HL_N(CPU &cpu, MMU &mmu) {
 }
 
 // 0x37
+void SCF(CPU &cpu) {
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 1;
+}
 
 // 0x38
 
@@ -431,6 +441,11 @@ void DEC_A(CPU &cpu) {
 // 0x3E
 
 // 0x3F
+void CCF(CPU &cpu) {
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = ~cpu.flags.C;
+}
 
 // 0x40
 void LD_B_B(CPU &cpu) {
@@ -1265,36 +1280,180 @@ void AND_A(CPU &cpu) {
 }
 
 // 0xA8
+void XOR_B(CPU &cpu) {
+    u8 result = cpu.regs.A ^ cpu.regs.B;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xA9
+void XOR_C(CPU &cpu) {
+    u8 result = cpu.regs.A ^ cpu.regs.C;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xAA
+void XOR_D(CPU &cpu) {
+    u8 result = cpu.regs.A ^ cpu.regs.D;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xAB
+void XOR_E(CPU &cpu) {
+    u8 result = cpu.regs.A ^ cpu.regs.E;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xAC
+void XOR_H(CPU &cpu) {
+    u8 result = cpu.regs.A ^ cpu.regs.H;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xAD
+void XOR_L(CPU &cpu) {
+    u8 result = cpu.regs.A ^ cpu.regs.L;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xAE
+void XOR_HL(CPU &cpu, MMU &mmu) {
+    u8 result = cpu.regs.A ^ mmu.bus_read(cpu.get_reg16_hl());
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xAF
+void XOR_A(CPU &cpu) {
+    u8 result = cpu.regs.A ^ cpu.regs.A;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
  
 // 0xB0
+void OR_B(CPU &cpu) {
+    u8 result = cpu.regs.A | cpu.regs.B;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xB1
+void OR_C(CPU &cpu) {
+    u8 result = cpu.regs.A | cpu.regs.C;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xB2
+void OR_D(CPU &cpu) {
+    u8 result = cpu.regs.A | cpu.regs.D;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xB3
+void OR_E(CPU &cpu) {
+    u8 result = cpu.regs.A | cpu.regs.E;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xB4
+void OR_H(CPU &cpu) {
+    u8 result = cpu.regs.A | cpu.regs.H;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xB5
+void OR_L(CPU &cpu) {
+    u8 result = cpu.regs.A | cpu.regs.L;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xB6
+void OR_HL(CPU &cpu, MMU &mmu) {
+    u8 result = cpu.regs.A | mmu.bus_read(cpu.get_reg16_hl());
+    cpu.regs.A = result;
 
-// 0xB7 TODO
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
+
+// 0xB7
+void OR_A(CPU &cpu) {
+    u8 result = cpu.regs.A | cpu.regs.A;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xB8
 void CP_B(CPU &cpu) {
@@ -1663,6 +1822,20 @@ void LD_NN_A(CPU &cpu, MMU &mmu) {
 // 0xED
 
 // 0xEE
+void XOR_N(CPU &cpu, MMU &mmu) {
+    u8 result, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A ^ mmu.bus_read(cpu.get_reg16_hl());
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xEF
  
@@ -1710,6 +1883,20 @@ void PUSH_AF(CPU &cpu) {
 }
 
 // 0xF6
+void OR_N(CPU &cpu, MMU &mmu) {
+    u8 result, n;
+
+    n = mmu.bus_read(cpu.regs.PC);
+    cpu.regs.PC += 0x1;
+
+    result = cpu.regs.A | n;
+    cpu.regs.A = result;
+
+    (result == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = 0;
+}
 
 // 0xF7
 
