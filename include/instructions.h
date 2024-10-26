@@ -261,14 +261,14 @@ void CP_N(CPU &cpu, MMU &mmu); // 0xFE
 // 0xFF
 
 
-//0xCB00
-//0xCB01
-//0xCB02
-//0xCB03
-//0xCB04
-//0xCB05
-//0xCB06
-//0xCB07
+void RLC_B(CPU &cpu); //0xCB00
+void RLC_C(CPU &cpu); //0xCB01
+void RLC_D(CPU &cpu); //0xCB02
+void RLC_E(CPU &cpu); //0xCB03
+void RLC_H(CPU &cpu); //0xCB04
+void RLC_L(CPU &cpu); //0xCB05
+void RLC_HL(CPU &cpu, MMU &mmu); //0xCB06
+void RLC_A(CPU &cpu); //0xCB07
 //0xCB08
 //0xCB09
 //0xCB0A
@@ -284,7 +284,7 @@ void CP_N(CPU &cpu, MMU &mmu); // 0xFE
 //0xCB14
 //0xCB15
 //0xCB16
-//0xCB17
+void RL_A(CPU &cpu); //0xCB17
 //0xCB18
 //0xCB19
 //0xCB1A

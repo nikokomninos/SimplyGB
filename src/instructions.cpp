@@ -1,5 +1,7 @@
 #include <instructions.h>
 
+/*---- 8-BIT OPCODES ----*/
+
 // 0x00
  
 // 0x01
@@ -65,6 +67,9 @@ void RLCA(CPU &cpu) {
     cpu.regs.A <<= 1;
     cpu.regs.A |= bit7;
 
+    cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
     cpu.flags.C = bit7;
 }
  
@@ -150,6 +155,9 @@ void RRCA(CPU &cpu) {
     cpu.regs.A >>= 1;
     cpu.regs.A |= (bit0 << 7);
 
+    cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
     cpu.flags.C = bit0;
 }
 
@@ -218,6 +226,9 @@ void RLA(CPU &cpu) {
     cpu.regs.A <<= 1;
     cpu.regs.A |= cpu.flags.C;
 
+    cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
     cpu.flags.C = bit7;
 }
 
@@ -284,6 +295,9 @@ void RRA(CPU &cpu) {
     cpu.regs.A >>= 1;
     cpu.regs.A |= (cpu.flags.C << 7);
 
+    cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
     cpu.flags.C = bit0;
 }
 
@@ -2076,21 +2090,104 @@ void CP_N(CPU &cpu, MMU &mmu) {
 // 0xFF
 
 
-//0xCB00
+/*---- 16-BIT OPCODES ----*/
 
-//0xCB01
+//0xCB00
+void RLC_B(CPU &cpu) {
+    bool bit7 = cpu.regs.B & 0x80;
+    cpu.regs.B <<= 1;
+    cpu.regs.B |= bit7;
+
+    (cpu.regs.B == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
+
+//0xCB01 TODO
+void RLC_C(CPU &cpu) {
+    bool bit7 = cpu.regs.C & 0x80;
+    cpu.regs.C <<= 1;
+    cpu.regs.C |= bit7;
+
+    (cpu.regs.C == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
 
 //0xCB02
+void RLC_D(CPU &cpu) {
+    bool bit7 = cpu.regs.D & 0x80;
+    cpu.regs.D <<= 1;
+    cpu.regs.D |= bit7;
+
+    (cpu.regs.D == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
 
 //0xCB03
+void RLC_E(CPU &cpu) {
+    bool bit7 = cpu.regs.E & 0x80;
+    cpu.regs.E <<= 1;
+    cpu.regs.E |= bit7;
+
+    (cpu.regs.E == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
 
 //0xCB04
+void RLC_H(CPU &cpu) {
+    bool bit7 = cpu.regs.H & 0x80;
+    cpu.regs.H <<= 1;
+    cpu.regs.H |= bit7;
+
+    (cpu.regs.H == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
 
 //0xCB05
+void RLC_L(CPU &cpu) {
+    bool bit7 = cpu.regs.L & 0x80;
+    cpu.regs.L <<= 1;
+    cpu.regs.L |= bit7;
 
-//0xCB06
+    (cpu.regs.L == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
 
-//0xCB07
+//0xCB06 FIXME?
+void RLC_HL(CPU &cpu, MMU &mmu) {
+    u16 n = mmu.bus_read(cpu.get_reg16_hl());
+    bool bit7 = n & 0x80;
+    n <<= 1;
+    n |= bit7;
+
+    (n == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
+
+//0xCB07 FIXME?
+void RLC_A(CPU &cpu) {
+    bool bit7 = cpu.regs.A & 0x80;
+    cpu.regs.A <<= 1;
+    cpu.regs.A |= bit7;
+
+    (cpu.regs.A == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
 
 //0xCB08
 
@@ -2106,7 +2203,9 @@ void CP_N(CPU &cpu, MMU &mmu) {
 
 //0xCB0E
 
-//0xCB0F
+//0xCB0F TODO
+void RRC_A(CPU &cpu) {
+}
 
 //0xCB10
 
@@ -2122,7 +2221,16 @@ void CP_N(CPU &cpu, MMU &mmu) {
 
 //0xCB16
 
-//0xCB17
+//0xCB17 FIXME?
+void RL_A(CPU &cpu) {
+    bool bit7 = cpu.regs.A & 0x80;
+    cpu.regs.A <<= 1;
+
+    (cpu.regs.A == 0) ? cpu.flags.Z = 1 : cpu.flags.Z = 0;
+    cpu.flags.N = 0;
+    cpu.flags.H = 0;
+    cpu.flags.C = bit7;
+}
 
 //0xCB18
 
