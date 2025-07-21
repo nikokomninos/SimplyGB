@@ -1,3 +1,5 @@
 # SimplyGB: A Simple GameBoy Emulator
 
-SimplyGB is a basic GameBoy emulator written in C++. It is currently a W.I.P
+**This project is now abandoned.**
+
+SimplyGB is a basic GameBoy emulator written in C++.
